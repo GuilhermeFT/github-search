@@ -1,15 +1,29 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
-export const SearchContainer = styled.div`
+interface SearchContainerProps {
+  compact: boolean
+}
+
+export const SearchContainer = styled.div<SearchContainerProps>`
   margin: auto;
-  padding: 8px 8px 8px 22px;
 
   width: 100%;
-  height: 5rem;
+
   max-width: 600px;
 
-  border-radius: 5rem;
-  background: ${props => props.theme.colors.darkGray};
+  ${props =>
+    props.compact
+      ? css`
+          padding: 8px 8px 8px 22px;
+          border-radius: 5rem;
+          background: ${props => props.theme.colors.darkGray};
+        `
+      : css`
+          transition: background 0.1s 0.2s, border-radius 0.1s 0.2s;
+          background: ${props => props.theme.colors.white};
+          padding: 6px 6px 6px 8px;
+          border-radius: 4px;
+        `}
 
   gap: 10px;
   display: grid;
@@ -22,7 +36,16 @@ export const SearchContainer = styled.div`
     border: none;
     font-size: 1.3rem;
 
-    color: ${props => props.theme.colors.white};
+    ${props =>
+      props.compact
+        ? css`
+            color: ${props => props.theme.colors.white};
+          `
+        : css`
+            transition: color 0.1s 0.2s;
+            color: ${props => props.theme.colors.darkBlue};
+          `}
+
     font-weight: 700;
 
     outline: none;
@@ -31,16 +54,28 @@ export const SearchContainer = styled.div`
 
   button {
     width: 4rem;
-    height: 4rem;
 
-    border-radius: 50%;
+    ${props =>
+      props.compact
+        ? css`
+            height: 4rem;
+            border-radius: 50%;
+          `
+        : css`
+            transition: height 0.1s 0.2s, border-radius 0.1s 0.2s;
+            border-radius: 4px;
+            height: 2.5rem;
+          `}
+
     border: none;
 
     padding: 8px;
     background: ${props => props.theme.colors.darkBlue};
 
     svg {
-      width: 70%;
+      fill: ${props => props.theme.colors.white};
+      width: 100%;
+      height: 100%;
     }
   }
 `

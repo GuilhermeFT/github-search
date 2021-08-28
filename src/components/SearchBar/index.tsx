@@ -1,11 +1,22 @@
 import { FaArrowRight } from 'react-icons/fa'
+import { useSearchBar } from 'src/hooks/useSearchBar'
 
 import { SearchContainer } from './styles'
 
-export function SearchBar() {
+interface SearchBarProps {
+  compact: boolean
+}
+
+export function SearchBar({ compact }: SearchBarProps) {
+  const { inputText, setInputText } = useSearchBar()
   return (
-    <SearchContainer>
-      <input type="text" placeholder="Github username" />
+    <SearchContainer compact={compact}>
+      <input
+        type="text"
+        value={inputText}
+        placeholder="Github username"
+        onChange={event => setInputText(event.target.value)}
+      />
       <button>
         <FaArrowRight />
       </button>
