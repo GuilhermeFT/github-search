@@ -1,6 +1,8 @@
 const darkTheme = {
   colors: {
-    backgroundColor: '#1B1C23'
+    white: '#FFFFFF',
+    darkBlue: '#1B1C23',
+    darkGray: '#2D2E34'
   }
 }
 

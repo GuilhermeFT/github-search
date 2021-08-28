@@ -21,7 +21,7 @@ const Css = css`
   }
 
   body {
-    background: ${props => props.theme.colors.backgroundColor};
+    background: ${props => props.theme.colors.darkBlue};
   }
 
   #root {
@@ -29,6 +29,7 @@ const Css = css`
     flex-direction: column;
 
     min-height: 100vh;
+    padding: 12px;
   }
 
   button {
