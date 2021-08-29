@@ -8,16 +8,16 @@ interface SearchBarProps {
 }
 
 export function SearchBar({ compact }: SearchBarProps) {
-  const { inputText, setInputText } = useSearchBar()
+  const { inputText, setInputText, handleFormSubmit } = useSearchBar()
   return (
-    <SearchContainer compact={compact}>
+    <SearchContainer compact={compact} onSubmit={handleFormSubmit}>
       <input
         type="text"
         value={inputText}
         placeholder="Github username"
         onChange={event => setInputText(event.target.value)}
       />
-      <button>
+      <button type="submit">
         <FaArrowRight />
       </button>
     </SearchContainer>

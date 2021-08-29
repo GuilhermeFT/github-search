@@ -12,7 +12,9 @@ export const HeaderContainer = styled.header<HeaderStyleProps>`
 
   width: 100%;
 
-  transition: top 1s ease;
+  transition: top 1s ease, transform 1s;
+
+  transform: translate(0, 0);
 
   ${props =>
     props.hiddenBar
@@ -33,18 +35,8 @@ export const HeaderContainer = styled.header<HeaderStyleProps>`
       margin: auto;
       color: ${props => props.theme.colors.white};
 
-      ${props =>
-        props.hiddenBar
-          ? css`
-              transition: width 0s 0.2s, height 0s 0.2s;
-              width: 4.5rem;
-              height: 4.5rem;
-            `
-          : css`
-              transition: width 0.09s 0.151s, height 0.09s 0.151s;
-              width: 15rem;
-              height: 15rem;
-            `}
+      width: 15rem;
+      height: 15rem;
     }
   }
 
@@ -55,14 +47,14 @@ export const HeaderContainer = styled.header<HeaderStyleProps>`
     display: grid;
     gap: 4rem;
 
-    transition: opacity 0.2s;
-
     ${props =>
       props.hiddenBar
         ? css`
+            transition: opacity 0.2s;
             opacity: 0;
           `
         : css`
+            transition: opacity 0.2s 0.2s;
             opacity: 1;
           `}
   }
@@ -80,11 +72,12 @@ export const HeaderContainer = styled.header<HeaderStyleProps>`
 
     gap: 10px;
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 1fr;
     justify-content: space-between;
 
     > svg {
       color: ${props => props.theme.colors.white};
+      display: none;
     }
 
     ${props =>

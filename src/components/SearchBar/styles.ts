@@ -4,12 +4,13 @@ interface SearchContainerProps {
   compact: boolean
 }
 
-export const SearchContainer = styled.div<SearchContainerProps>`
+export const SearchContainer = styled.form<SearchContainerProps>`
   margin: auto;
 
   width: 100%;
 
   max-width: 600px;
+  transition: background 0.1s 0.2s, border-radius 0.1s 0.2s;
 
   ${props =>
     props.compact
@@ -19,7 +20,6 @@ export const SearchContainer = styled.div<SearchContainerProps>`
           background: ${props => props.theme.colors.darkGray};
         `
       : css`
-          transition: background 0.1s 0.2s, border-radius 0.1s 0.2s;
           background: ${props => props.theme.colors.white};
           padding: 6px 6px 6px 8px;
           border-radius: 4px;
@@ -36,13 +36,14 @@ export const SearchContainer = styled.div<SearchContainerProps>`
     border: none;
     font-size: 1.3rem;
 
+    transition: color 0.1s 0.2s;
+
     ${props =>
       props.compact
         ? css`
             color: ${props => props.theme.colors.white};
           `
         : css`
-            transition: color 0.1s 0.2s;
             color: ${props => props.theme.colors.darkBlue};
           `}
 
@@ -54,6 +55,7 @@ export const SearchContainer = styled.div<SearchContainerProps>`
 
   button {
     width: 4rem;
+    transition: height 0.1s 0.2s, border-radius 0.1s 0.2s;
 
     ${props =>
       props.compact
@@ -62,7 +64,6 @@ export const SearchContainer = styled.div<SearchContainerProps>`
             border-radius: 50%;
           `
         : css`
-            transition: height 0.1s 0.2s, border-radius 0.1s 0.2s;
             border-radius: 4px;
             height: 2.5rem;
           `}

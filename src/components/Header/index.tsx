@@ -6,17 +6,17 @@ import { HeaderContainer } from './styles'
 import { SearchBar } from '../SearchBar'
 
 export function Header() {
-  const { inputText } = useSearchBar()
+  const { changeView } = useSearchBar()
 
   return (
-    <HeaderContainer hiddenBar={inputText !== ''}>
+    <HeaderContainer hiddenBar={changeView}>
       <div>
         <FaGithub />
-        <SearchBar compact={inputText === ''} />
+        <SearchBar compact={!changeView} />
       </div>
       <div>
         <FaGithub />
-        <SearchBar compact={inputText === ''} />
+        <SearchBar compact={!changeView} />
       </div>
     </HeaderContainer>
   )
