@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSearchBar } from 'src/hooks/useSearchBar'
 import { api } from 'src/services/api'
 
@@ -26,58 +26,76 @@ type RepositoryData = {
 
 export function List() {
   const { search, inputText, setSearch } = useSearchBar()
-  const [user, setUser] = useState<UserData | null>()
-  const [repositories, setRepositories] = useState<RepositoryData[] | null>([])
+
   const [error, setError] = useState('')
+  const [currentPage, setcurrentPage] = useState(0)
+  const [infitiny, setInfitiny] = useState(true)
+  const [user, setUser] = useState<UserData | null>()
+  const [repositories, setRepositories] = useState<RepositoryData[]>([])
+  const isInitialMount = useRef(true)
 
   useEffect(() => {
     if (search) {
+      setInfitiny(true)
       setUser(null)
-
-      api
-        .get(`users/${inputText}`)
-        .then(response => {
-          setUser({
-            id: response.data.id,
-            name: response.data.name,
-            username: response.data.login,
-            avatar: response.data.avatar_url,
-            link: response.data.html_url
-          })
-        })
-        .catch(_err => {
-          setError('User not found!')
-        })
-
-      api
-        .get(`users/${inputText}/repos`)
-        .then(response => {
-          console.log(response.headers)
-
-          const repositoriesData: RepositoryData[] = response.data.map(
-            (repository: any) => {
-              return {
-                id: repository.id,
-                name: repository.name,
-                description: repository.description,
-                openIssues: repository.open_issues_count,
-                forksCount: repository.forks_count,
-                stargazersCount: repository.stargazers_count,
-                link: repository.html_url
-              }
-            }
-          )
-
-          repositoriesData.reverse()
-          setRepositories(repositoriesData)
-        })
-        .catch(_err => {
-          setError('Repository error')
-        })
-
-      setSearch(false)
+      setRepositories([])
+      fetchGithubData(1)
     }
   }, [search])
+
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false
+    } else if (infitiny) {
+      fetchGithubData(currentPage)
+    }
+  }, [currentPage])
+
+  function fetchGithubData(page: number) {
+    api
+      .get(`users/${inputText}`)
+      .then(response => {
+        setUser({
+          id: response.data.id,
+          name: response.data.name,
+          username: response.data.login,
+          avatar: response.data.avatar_url,
+          link: response.data.html_url
+        })
+      })
+      .catch(_err => {
+        setError('User not found!')
+      })
+
+    api.get(`users/${inputText}/repos`, { params: { page } }).then(response => {
+      const repositoriesData: RepositoryData[] = response.data.map(
+        (repository: any) => {
+          return {
+            id: repository.id,
+            name: repository.name,
+            description: repository.description,
+            openIssues: repository.open_issues_count,
+            forksCount: repository.forks_count,
+            stargazersCount: repository.stargazers_count,
+            link: repository.html_url
+          }
+        }
+      )
+
+      repositoriesData.reverse()
+
+      if (repositoriesData.length === 0) {
+        setInfitiny(false)
+      } else if (page !== 1) {
+        setRepositories([...repositories, ...repositoriesData])
+      } else {
+        setRepositories(repositoriesData)
+      }
+    })
+
+    setSearch(false)
+  }
+
   return (
     <ListContainer>
       <ContentBox>
@@ -93,7 +111,7 @@ export function List() {
               </h1>
             </aside>
 
-            <div>
+            <div className={`${!user ? 'loader' : null}`}>
               {repositories?.map(repository => (
                 <Card key={repository.id}>
                   <h2>{repository.name}</h2>
@@ -118,6 +136,18 @@ export function List() {
                   </a>
                 </Card>
               ))}
+
+              {infitiny && (
+                <button
+                  onClick={() => {
+                    if (infitiny) {
+                      setcurrentPage(old => old + 1)
+                    }
+                  }}
+                >
+                  Carregar mais
+                </button>
+              )}
             </div>
           </>
         ) : (

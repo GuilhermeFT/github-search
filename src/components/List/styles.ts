@@ -128,6 +128,13 @@ export const ContentBox = styled.div`
     }
   }
 
+  button {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: none;
+    width: 100%;
+  }
+
   @media (max-width: 1080px) {
     grid-template-columns: 30% 1fr;
   }
