@@ -1,5 +1,6 @@
 import { useContext } from 'react'
-import { SearchBarContext } from 'src/contexts/SearchBarContext'
+
+import { SearchBarContext } from '../contexts/SearchBarContext'
 
 export function useSearchBar() {
   return useContext(SearchBarContext)

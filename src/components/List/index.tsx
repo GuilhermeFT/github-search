@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
-import { useSearchBar } from 'src/hooks/useSearchBar'
-import { api } from 'src/services/api'
 
 import { ContentBox, ListContainer } from './styles'
 
+import { useSearchBar } from '../../hooks/useSearchBar'
+import { api } from '../../services/api'
 import { Card } from '../Card'
 
 type UserData = {

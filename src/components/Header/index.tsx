@@ -1,8 +1,8 @@
 import { FaGithub } from 'react-icons/fa'
-import { useSearchBar } from 'src/hooks/useSearchBar'
 
 import { HeaderContainer } from './styles'
 
+import { useSearchBar } from '../../hooks/useSearchBar'
 import { SearchBar } from '../SearchBar'
 
 export function Header() {

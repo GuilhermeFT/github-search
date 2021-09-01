@@ -1,7 +1,8 @@
 import { FaArrowRight } from 'react-icons/fa'
-import { useSearchBar } from 'src/hooks/useSearchBar'
 
 import { SearchContainer } from './styles'
+
+import { useSearchBar } from '../../hooks/useSearchBar'
 
 interface SearchBarProps {
   compact: boolean

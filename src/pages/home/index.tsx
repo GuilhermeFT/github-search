@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
-import { Header } from 'src/components/Header'
-import { List } from 'src/components/List'
-import { useSearchBar } from 'src/hooks/useSearchBar'
+
+import { Header } from '../../components/Header'
+import { List } from '../../components/List'
+import { useSearchBar } from '../../hooks/useSearchBar'
 
 export function Home() {
   const { changeView } = useSearchBar()
