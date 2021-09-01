@@ -6,13 +6,13 @@ import GlobalStyle from './styles/global'
 import darkTheme from './styles/themes/darkTheme'
 
 import { SearchBarProvider } from './contexts/SearchBarContext'
-import { Routes } from './routes'
+import { Home } from './pages/Home'
 
 ReactDOM.render(
   <React.StrictMode>
     <SearchBarProvider>
       <ThemeProvider theme={darkTheme}>
-        <Routes />
+        <Home />
         <GlobalStyle />
       </ThemeProvider>
     </SearchBarProvider>
