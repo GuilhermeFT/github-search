@@ -37,7 +37,7 @@ $ yarn start
 
 O app estará disponível no seu browser pelo endereço http://localhost:3000.
 
-O app também está disponível na web em produção <>
+O app também está disponível na web em produção https://github-search-alpha.vercel.app/
 
 <br>
 
